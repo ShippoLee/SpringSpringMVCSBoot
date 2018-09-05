@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -20,6 +21,8 @@ import java.util.List;
 @Configuration
 //@EnableWebMvc开启SpringMVC支持，若无此句，重写WebMvcConfigurerAdapter方法无效
 @EnableWebMvc
+//开启计划任务的支持
+@EnableScheduling
 @ComponentScan("com.wisely.highlight_springmvc4")
 //继承WebMvcConfigurerAdapter类，重写其方法可对Spring MVC进行配置
 public class MyMvcConfig extends WebMvcConfigurerAdapter{
@@ -68,6 +71,9 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 
         //添加转向sse.jsp页面的映射
         registry.addViewController("/sse").setViewName("/sse");
+        
+        //添加viewController
+        registry.addViewController("/async").setViewName("/async");
     }
 
     //通过重写configurePathMatch方法可不忽略"."后面的 参数
@@ -101,6 +107,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 
 
 
+    
 
     /**
     @Bean

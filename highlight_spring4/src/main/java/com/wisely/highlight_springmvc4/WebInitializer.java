@@ -7,6 +7,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+import javax.servlet.ServletRegistration.Dynamic;
 
 /**
  * Created by Ares on 2018/8/23.
@@ -28,10 +29,16 @@ public class WebInitializer implements WebApplicationInitializer{
         ctx.setServletContext(servletContext);
 
         //注册SpringMVC的DispatcherServlet
-        ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher",new DispatcherServlet(ctx));
-
+       ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher",new DispatcherServlet(ctx));
+        
+     //   Dynamic servlet = servletContext.addServlet("dispatcher",new DispatcherServlet(ctx));
+        
         servlet.addMapping("/");
         servlet.setLoadOnStartup(1);
+      //开启异步方法支持
+        servlet.setAsyncSupported(true);
 
+      
+       
     }
 }
